@@ -38,15 +38,10 @@ bool birdHitsObstacle(const Game *game) {
         const Pipe *pipe = &game->m_pipes[i];
 
         /* Upper pipe: from y = 0 down to the gap's top edge. */
-        Box upper = {
-            pipe->m_x, 0.0f,
-            PIPE_WIDTH, pipe->m_gap_y
-        };
+        Box upper = {pipe->m_x, 0.0f, PIPE_WIDTH, pipe->m_gap_y};
         /* Lower pipe: from the gap's bottom edge to the floor. */
-        Box lower = {
-            pipe->m_x, pipe->m_gap_y + PIPE_GAP_HEIGHT,
-            PIPE_WIDTH, FLOOR_Y - pipe->m_gap_y - PIPE_GAP_HEIGHT
-        };
+        Box lower = {pipe->m_x, pipe->m_gap_y + PIPE_GAP_HEIGHT, PIPE_WIDTH,
+                     FLOOR_Y - pipe->m_gap_y - PIPE_GAP_HEIGHT};
 
         if (boxesOverlap(bird, upper) || boxesOverlap(bird, lower)) {
             return true;

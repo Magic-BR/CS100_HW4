@@ -9,16 +9,16 @@
 /* Reverse of a direction; used to reject 180-degree turns. */
 static Direction opposite(Direction dir) {
     switch (dir) {
-        case DIR_RIGHT:
-            return DIR_LEFT;
-        case DIR_LEFT:
-            return DIR_RIGHT;
-        case DIR_DOWN:
-            return DIR_UP;
-        case DIR_UP:
-            return DIR_DOWN;
-        default:
-            return DIRECTION_COUNT;
+    case DIR_RIGHT:
+        return DIR_LEFT;
+    case DIR_LEFT:
+        return DIR_RIGHT;
+    case DIR_DOWN:
+        return DIR_UP;
+    case DIR_UP:
+        return DIR_DOWN;
+    default:
+        return DIRECTION_COUNT;
     }
 }
 
@@ -40,19 +40,19 @@ static Direction effectiveDirection(const Snake *snake, Direction requested) {
 /* Translate a coordinate one step in the given direction. */
 static Coord moveCoord(Coord pos, Direction dir) {
     switch (dir) {
-        case DIR_UP:
-            pos.m_row -= 1;
-            break;
-        case DIR_DOWN:
-            pos.m_row += 1;
-            break;
-        case DIR_LEFT:
-            pos.m_col -= 1;
-            break;
-        case DIR_RIGHT:
-        default:
-            pos.m_col += 1;
-            break;
+    case DIR_UP:
+        pos.m_row -= 1;
+        break;
+    case DIR_DOWN:
+        pos.m_row += 1;
+        break;
+    case DIR_LEFT:
+        pos.m_col -= 1;
+        break;
+    case DIR_RIGHT:
+    default:
+        pos.m_col += 1;
+        break;
     }
     return pos;
 }
@@ -77,10 +77,8 @@ static SnakeNode *findBefore(const Snake *snake, const SnakeNode *node) {
 
 /* Check whether a cell lies on or beyond the outer wall ring. */
 static bool hitsWall(const Snake *snake, Coord pos) {
-    return pos.m_row < BOARD_WALL_THICKNESS ||
-           pos.m_row >= snake->m_rows - BOARD_WALL_THICKNESS ||
-           pos.m_col < BOARD_WALL_THICKNESS ||
-           pos.m_col >= snake->m_cols - BOARD_WALL_THICKNESS;
+    return pos.m_row < BOARD_WALL_THICKNESS || pos.m_row >= snake->m_rows - BOARD_WALL_THICKNESS ||
+           pos.m_col < BOARD_WALL_THICKNESS || pos.m_col >= snake->m_cols - BOARD_WALL_THICKNESS;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -194,9 +192,8 @@ StepResult snakeStep(Snake *snake, Direction requested, bool grow) {
     }
 
     SnakeNode *tail = findTail(snake);
-    const bool nextIsTail = !grow &&
-                            next.m_row == tail->m_pos.m_row &&
-                            next.m_col == tail->m_pos.m_col;
+    const bool nextIsTail =
+        !grow && next.m_row == tail->m_pos.m_row && next.m_col == tail->m_pos.m_col;
 
     /* 2) Body collision (the vacated tail cell is exempt on a normal move). */
     if (!nextIsTail && snakeContains(snake, next)) {
